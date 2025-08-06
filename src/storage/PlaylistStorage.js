@@ -1,6 +1,6 @@
 const PLAYLIST_KEY = '__cl__youtube_playlists';
-const RECENT_PLAYING_PLAYLIST_KEY = '__RECENT__PLAYING__PLAYLIST__KEY';
-const ADD_FAVORITE_PLAYLIST_KEY = '__ADD__FAVORITE__PLAYLIST__KEY';
+const RECENT_PLAYING_PLAYLIST_KEY = '__recent__playing__playlist';
+const ADD_FAVORITE_PLAYLIST_KEY = '__add__favorite__playlist';
 class PlaylistStorage {
   setStorage(playlist) {
     localStorage.setItem(PLAYLIST_KEY, JSON.stringify(playlist));
@@ -21,9 +21,9 @@ class PlaylistStorage {
   getFavoritePlaylist() {
     return JSON.parse(localStorage.getItem(ADD_FAVORITE_PLAYLIST_KEY));
   }
-  // removeFavoritePlaylist(id) {
-
-  // }
+  removePastFavoritePlaylist() {
+    localStorage.removeItem(ADD_FAVORITE_PLAYLIST_KEY);
+  }
 }
 
 const storage = new PlaylistStorage();

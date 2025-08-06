@@ -1,15 +1,25 @@
 import { action } from 'easy-peasy';
-import storage from '../storage/PlaylistStorage';
+// import storage from '../storage/PlaylistStorage';
 const favoritePlaylistModel = {
-  items: [storage.getFavoritePlaylist()],
+  items: [],
+  filterFavoriteText: '',
   addItems: action((state, payload) => {
-    state.items.push(payload);
-    storage.setFavoritePlaylist(state.items);
-    if (state.items.length > 3) {
-      state.items.slice(-1);
-      storage.setFavoritePlaylist(state.items);
+    const favItems = state.items;
+    if (favItems.includes(payload)) return;
+    favItems.push(payload);
+    if (favItems.length > 3) {
+      favItems.shift(payload);
     }
-    return state;
+  }),
+
+  removeFavorite: action((state, payload) => {
+    const favItems = state.items;
+    const filterFav = favItems.filter((i) => i !== payload);
+    return filterFav;
+  }),
+  setFilterFavorite: action((state, payload) => {
+    state.filterFavoriteText = '';
+    state.filterFavoriteText = payload;
   }),
 };
 export default favoritePlaylistModel;

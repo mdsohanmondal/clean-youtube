@@ -12,18 +12,25 @@ import {
 } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { useStoreActions, useStoreState } from 'easy-peasy';
+import ContextMenu from '../../context';
+import RemoveItemPopup from '../../popus/removeItemPopup';
+import { Box } from '@mui/material';
+import { useState } from 'react';
 const PlaylistCard = ({
   imageSrc,
   playlistTitle,
   playlistDescription,
   playlistId,
 }) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const addFavoriteId = useStoreActions(
     (state) => state.favoritesPlaylist.addItems
   );
+
   const favoritePlaylist = useStoreState(
     (state) => state.favoritesPlaylist.items
   );
+
   return (
     <Card
       sx={{
@@ -34,6 +41,15 @@ const PlaylistCard = ({
       }}
     >
       <CardActionArea>
+        <Box>
+          <RemoveItemPopup
+            setIsPopupOpen={setIsPopupOpen}
+            isPopupOpen={isPopupOpen}
+            playlistId={playlistId}
+          />
+        </Box>
+        <ContextMenu setIsPopupOpen={setIsPopupOpen} />
+        {/* </Button> */}
         <CardMedia
           component="img"
           image={imageSrc}
@@ -76,7 +92,7 @@ const PlaylistCard = ({
             className="flex items-center justify-center"
           >
             <MdOutlinePauseCircle className="text-sm" />
-            <span className="text-[12px] m-1">Play</span>
+            <span className="text-[12px] m-1">view</span>
           </Button>
         </Link>
         <Button
@@ -85,12 +101,19 @@ const PlaylistCard = ({
           className="flex items-center justify-center"
           onClick={() => addFavoriteId(playlistId)}
         >
-          {favoritePlaylist.includes(playlistId) ? (
-            <MdOutlineFavorite className="text-red-500" />
+          {favoritePlaylist?.includes(playlistId) ? (
+            <>
+              <MdOutlineFavorite className="text-red-500" />
+              <span className="text-[12px] m-1 text-red-500">favoured</span>
+            </>
           ) : (
-            <MdFavoriteBorder className="text-sm text-black" />
+            <>
+              <MdFavoriteBorder className="text-sm text-black" />
+              <span className="text-[12px] m-1 text-gray-500">
+                add favorite
+              </span>
+            </>
           )}
-          <span className="text-[12px] m-1 text-gray-500">Favorite</span>
         </Button>
       </CardActions>
     </Card>

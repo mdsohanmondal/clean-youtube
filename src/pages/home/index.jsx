@@ -5,6 +5,25 @@ import { Box } from '@mui/joy';
 const Home = () => {
   const playlist = useStoreState((state) => state.playlist.data);
   const playlistItems = Object.values(playlist);
+  const filterState = useStoreState(
+    (state) => state.favoritesPlaylist.filterFavoriteText
+  );
+  const favoritePlaylistId = useStoreState(
+    (state) => state.favoritesPlaylist.items
+  );
+
+  const playlistItemByFiltered =
+    filterState === 'all'
+      ? playlistItems
+      : filterState === 'favorite'
+      ? playlistItems.filter((item) =>
+          favoritePlaylistId.includes(item.playlistId)
+        )
+      : filterState === 'unfavorite'
+      ? playlistItems.filter(
+          (item) => !favoritePlaylistId.includes(item.playlistId)
+        )
+      : playlistItems;
 
   return (
     <Box
@@ -19,8 +38,8 @@ const Home = () => {
         padding: '5rem 10rem',
       }}
     >
-      {playlistItems &&
-        playlistItems.map((item) => (
+      {playlistItemByFiltered &&
+        playlistItemByFiltered?.map((item) => (
           <PlaylistCard
             key={item.playlistId}
             imageSrc={item.playlistThumbnails.url}

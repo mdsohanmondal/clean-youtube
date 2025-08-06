@@ -20,6 +20,10 @@ const playlistModels = {
       action.addData(getData);
     })
   ),
+  removeData: action((state, payload) => {
+    delete state.data[payload];
+    storage.setStorage(state.data);
+  }),
 };
 
 export default playlistModels;
