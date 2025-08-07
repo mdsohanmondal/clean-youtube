@@ -26,8 +26,9 @@ const VideoPlayer = () => {
         {/* Video Player */}
         <Box sx={{ width: '100vw' }}>
           <iframe
-            src={`https://www.youtube.com/embed/${videoId}`}
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
             title="YouTube Video Player"
+            frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             style={{

@@ -6,8 +6,8 @@
  */
 
 function convertValidUrl(link) {
-  const url = new URL(link);
   try {
+    const url = new URL(link);
     const id = url.searchParams.get('list');
     return id;
   } catch (e) {
