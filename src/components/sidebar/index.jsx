@@ -65,7 +65,7 @@ const Sidebar = () => {
       </Box>
       <Link to={'/recent-play-play-lits'}>
         <Button size="small" variant="outlined" color="info">
-          Recents
+          History
         </Button>
       </Link>
     </Box>

@@ -2,6 +2,7 @@ import { useStoreState } from 'easy-peasy';
 import PlaylistCard from '../../components/cards/playlist-card';
 import { Box } from '@mui/joy';
 import Sidebar from '../../components/sidebar';
+import { Typography } from '@mui/material';
 
 const Home = () => {
   const playlist = useStoreState((state) => state.playlist.data);
@@ -56,7 +57,7 @@ const Home = () => {
       }}
     >
       <Sidebar />
-      {playlistItemByFiltered &&
+      {playlistItemByFiltered.length > 0 ? (
         playlistItemByFiltered?.map((item) => (
           <PlaylistCard
             key={item.playlistId}
@@ -65,7 +66,16 @@ const Home = () => {
             playlistDescription={item.playlistDescription}
             playlistId={item.playlistId}
           />
-        ))}
+        ))
+      ) : (
+        <Typography
+          variant="h3"
+          sx={{ width: '80vw', height: '80vh', margin: '15rem 0' }}
+        >
+          There are no playlist.Please add your favorite playlist URL or
+          playlist id{' '}
+        </Typography>
+      )}
     </Box>
   );
 };
