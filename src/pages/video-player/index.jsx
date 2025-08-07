@@ -12,9 +12,11 @@ const VideoPlayer = () => {
   const { videoId } = useParams();
 
   const { description, title } =
-    playlistItems && playlistItems.find((item) => item.videoId === videoId);
+    (playlistItems && playlistItems.find((item) => item.videoId === videoId)) ||
+    {};
+
   return (
-    <Container maxWidth="lg" sx={{ mt: 5, padding: '1rem 1rem' }}>
+    <Container maxWidth="lg" sx={{ mt: 5, px: 2 }}>
       <Box
         sx={{
           display: 'flex',
@@ -24,47 +26,80 @@ const VideoPlayer = () => {
         }}
       >
         {/* Video Player */}
-        <Box sx={{ width: '100vw' }}>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
           <iframe
             src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
             title="YouTube Video Player"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             style={{
-              width: '90vw',
-              height: '90vh',
+              width: '100%',
+              maxWidth: '1000px',
+              aspectRatio: '16 / 9',
               border: 'none',
             }}
           />
         </Box>
 
-        {/* Video Cards Sidebar */}
+        {/* Video Info + Sidebar */}
         <Box
           sx={{
             display: 'flex',
-            alignItems: 'baseline',
+            flexDirection: {
+              xs: 'column',
+              md: 'row',
+            },
+            alignItems: {
+              xs: 'flex-start',
+              md: 'baseline',
+            },
             justifyContent: 'space-between',
-            width: '100vw',
+            width: '100%',
             minHeight: '100vh',
+            gap: 4,
           }}
         >
-          <Box>
-            <Typography variant="h4">{title}</Typography>
-            <Typography variant="p" sx={{ margin: '4rem' }}>
+          {/* Left: Title & Description */}
+          <Box sx={{ flex: 1 }}>
+            <Typography variant="h5" sx={{ mb: 2 }}>
+              {title}
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'text.secondary',
+                whiteSpace: 'pre-wrap',
+              }}
+            >
               {description}
             </Typography>
           </Box>
 
+          {/* Right: Related Video List */}
           <Box
             sx={{
-              minWidth: '40vw',
-              maxWidth: '40vw',
-              minHeight: '100vh',
+              width: {
+                xs: '100%',
+                md: '40%',
+              },
+              maxHeight: {
+                xs: 'auto',
+                md: '100vh',
+              },
               display: 'flex',
               flexDirection: 'column',
               gap: 2,
-              overflowY: 'auto',
+              overflowY: {
+                xs: 'visible',
+                md: 'auto',
+              },
             }}
           >
             {playlistItems &&

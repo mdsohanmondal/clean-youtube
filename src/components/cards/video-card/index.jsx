@@ -4,26 +4,43 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useStoreActions } from 'easy-peasy';
 
+// ==== Styled Components ====
+
 const Parent = styled.div`
-  width: ${(props) => (props.variant === 'small' ? '100%' : '60vw')};
+  width: 100%;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-  background-color: #f3f3f3;
-  border-radius: 10px;
-  padding: ${(props) => (props.variant === 'small' ? '0.4rem' : '0.8rem')};
-  margin: 0.5rem 0;
-  box-shadow: ${(props) =>
-    props.variant === 'small' ? 'none' : '0 4px 10px rgba(0,0,0,0.1)'};
+  align-items: center;
+  gap: 0.6rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+  margin: 0.4rem 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f1f1f1;
+  }
 `;
 
 const Thumbnail = styled.div`
-  width: ${(props) => (props.variant === 'small' ? '80px' : '140px')};
-  height: ${(props) => (props.variant === 'small' ? '50px' : '100px')};
-  border-radius: 8px;
+  width: 120px;
+  height: 50px;
+  border-radius: 4px;
   overflow: hidden;
   flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 45px;
+  }
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const VideoDetails = styled.div`
@@ -31,58 +48,61 @@ const VideoDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
+`;
+
+const H1 = styled.h1`
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const P = styled.p`
+  font-size: 10px;
+  color: #666;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const MenuBar = styled.div`
   margin-left: auto;
+
+  button {
+    min-width: 0;
+    padding: 2px;
+  }
 `;
 
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-`;
+// ==== Main Component ====
 
-const P = styled.div`
-  font-size: ${(props) => (props.variant === 'small' ? '10px' : '13px')};
-  color: #757575;
-`;
-
-const H1 = styled.h1`
-  font-size: ${(props) => (props.variant === 'small' ? '10px' : '18px')};
-  font-weight: 600;
-  margin: 0;
-  color: #333;
-`;
-
-const VideoCard = ({
-  variant = 'normal',
-  videoId,
-  title,
-  thumbnail,
-  publishedAt,
-  playlistId,
-}) => {
+const VideoCard = ({ videoId, title, thumbnail, publishedAt, playlistId }) => {
   const setRecent = useStoreActions((state) => state.recentPlaylist.addItems);
+
   return (
     <Link
       to={`/playlist-watch/${videoId}`}
       onClick={() => setRecent(playlistId)}
+      style={{ textDecoration: 'none' }}
     >
-      <Parent variant={variant}>
-        <Thumbnail variant={variant}>
-          <Img src={thumbnail?.url} alt="Thumbnail" />
+      <Parent>
+        <Thumbnail>
+          <Img src={thumbnail?.url} alt={title} />
         </Thumbnail>
+
         <VideoDetails>
-          <H1 variant={variant}>{title}</H1>
-          <P variant={variant}>
-            Stack Learner • 24k views • {publishedAt} years ago
-          </P>
+          <H1>{title}</H1>
+          <P>Stack Learner • {publishedAt} years ago</P>
         </VideoDetails>
+
         <MenuBar>
           <Button>
-            <CiMenuKebab />
+            <CiMenuKebab size={18} />
           </Button>
         </MenuBar>
       </Parent>

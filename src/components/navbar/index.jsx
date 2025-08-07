@@ -86,15 +86,6 @@ const Navbar = ({ setOpen }) => {
               justifyContent: 'center',
             }}
           >
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 2 }}
-            >
-              <IoMenu />
-            </IconButton>
             <Link to={'/'}>
               <Typography
                 variant="h6"

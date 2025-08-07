@@ -32,11 +32,27 @@ const Home = () => {
         width: '100%',
         height: '100%',
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gridTemplateRows: 'repeat(3, 1fr)',
-        gridColumnGap: '2rem',
-        gridRowGap: '2rem',
-        padding: '5rem 10rem',
+        gridTemplateColumns: {
+          xs: '1fr',
+          sm: 'repeat(2, 1fr)',
+          md: 'repeat(3, 1fr)',
+        },
+        gridTemplateRows: 'auto',
+        gridColumnGap: {
+          xs: '1rem',
+          sm: '1.5rem',
+          md: '2rem',
+        },
+        gridRowGap: {
+          xs: '1rem',
+          sm: '1.5rem',
+          md: '2rem',
+        },
+        padding: {
+          xs: '2rem 1rem',
+          sm: '3rem 2rem',
+          md: '5rem 10rem',
+        },
       }}
     >
       <Sidebar />
@@ -53,4 +69,5 @@ const Home = () => {
     </Box>
   );
 };
+
 export default Home;
