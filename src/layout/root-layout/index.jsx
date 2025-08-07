@@ -6,8 +6,8 @@ import VideoPlayer from '../../pages/video-player';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import InputUrlForm from '../../components/input-url/InputUrlPopup';
 import { useState } from 'react';
-import Sidebar from '../../components/sidebar';
 import ContextMenu from '../../components/context';
+import RecentPlayPlaylist from '../../pages/recent-play';
 
 const RootLayout = () => {
   const [open, setOpen] = useState(false);
@@ -20,7 +20,6 @@ const RootLayout = () => {
       <BrowserRouter>
         <Box sx={{ width: '100vw' }}>
           <Navbar setOpen={setOpen} />
-          <Sidebar />
           <Box sx={{ width: '100vw', minHeight: '100vh' }}>
             {open && <InputUrlForm handleClose={handleClose} isOpen={open} />}
             <Routes>
@@ -33,7 +32,10 @@ const RootLayout = () => {
                 path="/playlist-watch/:videoId"
                 element={<VideoPlayer />}
               />
-              <Route path="/playlist" element={<ContextMenu />} />
+              <Route
+                path="/recent-play-play-lits"
+                element={<RecentPlayPlaylist />}
+              />
             </Routes>
           </Box>
         </Box>

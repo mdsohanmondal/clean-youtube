@@ -127,6 +127,7 @@ const PlaylistItems = () => {
                 title={item.title}
                 thumbnail={item.medium}
                 publishedAt={item.publishedAt}
+                playlistId={playlistId}
               />
             ))}
           </div>

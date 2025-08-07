@@ -1,6 +1,7 @@
 import { useStoreState } from 'easy-peasy';
 import PlaylistCard from '../../components/cards/playlist-card';
 import { Box } from '@mui/joy';
+import Sidebar from '../../components/sidebar';
 
 const Home = () => {
   const playlist = useStoreState((state) => state.playlist.data);
@@ -38,6 +39,7 @@ const Home = () => {
         padding: '5rem 10rem',
       }}
     >
+      <Sidebar />
       {playlistItemByFiltered &&
         playlistItemByFiltered?.map((item) => (
           <PlaylistCard

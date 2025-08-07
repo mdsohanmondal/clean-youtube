@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import { useStoreActions } from 'easy-peasy';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   const [filterBy, setFilterBy] = useState('all');
@@ -27,13 +28,15 @@ const Sidebar = () => {
         sx={{
           display: 'flex',
           alignItems: 'baseline',
-          justifyContent: 'center',
+          justifyContent: 'baseline',
           flexDirection: 'column',
           gap: '0.5rem',
           margin: '0.5rem 0',
+          height: '60vh',
         }}
       >
         <Button
+          sx={{ maxWidth: '6rem', minWidth: '6rem' }}
           onClick={() => setFilterBy('all')}
           size="small"
           color="secondary"
@@ -42,6 +45,7 @@ const Sidebar = () => {
           All
         </Button>
         <Button
+          sx={{ maxWidth: '6rem', minWidth: '6rem' }}
           onClick={() => setFilterBy('favorite')}
           size="small"
           variant={filterBy === 'favorite' ? 'contained' : 'outlined'}
@@ -50,6 +54,7 @@ const Sidebar = () => {
           Favorite
         </Button>
         <Button
+          sx={{ maxWidth: '6rem', minWidth: '6rem' }}
           onClick={() => setFilterBy('unfavorite')}
           size="small"
           variant={filterBy === 'unfavorite' ? 'contained' : 'outlined'}
@@ -58,6 +63,11 @@ const Sidebar = () => {
           Unfavorite
         </Button>
       </Box>
+      <Link to={'/recent-play-play-lits'}>
+        <Button size="small" variant="outlined" color="info">
+          Recents
+        </Button>
+      </Link>
     </Box>
   );
 };

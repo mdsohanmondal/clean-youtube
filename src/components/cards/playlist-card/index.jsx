@@ -66,8 +66,10 @@ const PlaylistCard = ({
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {`${
-              playlistDescription.length > 50 && playlistDescription
-                ? `${playlistDescription.slice(0, 50)}.See more`
+              playlistDescription
+                ? playlistDescription.length > 50 && playlistDescription
+                  ? `${playlistDescription.slice(0, 50)}.See more`
+                  : playlistDescription
                 : playlistDescription
             }`}
           </Typography>

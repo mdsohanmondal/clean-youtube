@@ -2,6 +2,7 @@ import { CiMenuKebab } from 'react-icons/ci';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useStoreActions } from 'easy-peasy';
 
 const Parent = styled.div`
   width: ${(props) => (props.variant === 'small' ? '100%' : '60vw')};
@@ -55,23 +56,20 @@ const H1 = styled.h1`
   color: #333;
 `;
 
-// key={item.videoId}
-//                 videoId={item.videoId}
-//                 description={item.description}
-//                 position={item.position}
-//                 title={item.title}
-//                 thumbnail={item.medium}
-//                 publishedAt={item.publishedAt}
-
 const VideoCard = ({
   variant = 'normal',
   videoId,
   title,
   thumbnail,
   publishedAt,
+  playlistId,
 }) => {
+  const setRecent = useStoreActions((state) => state.recentPlaylist.addItems);
   return (
-    <Link to={`/playlist-watch/${videoId}`}>
+    <Link
+      to={`/playlist-watch/${videoId}`}
+      onClick={() => setRecent(playlistId)}
+    >
       <Parent variant={variant}>
         <Thumbnail variant={variant}>
           <Img src={thumbnail?.url} alt="Thumbnail" />

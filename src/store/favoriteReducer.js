@@ -7,7 +7,7 @@ const favoritePlaylistModel = {
     const favItems = state.items;
     if (favItems.includes(payload)) return;
     favItems.push(payload);
-    if (favItems.length > 3) {
+    if (favItems.length > 4) {
       favItems.shift(payload);
     }
   }),
